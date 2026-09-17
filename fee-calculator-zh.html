@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中国商标官费计算器（2026）｜类别数/商品项算总费用 — 华青创新</title>
+<meta name="description" content="免费算中国商标注册费用：选类别数和商品项，自动算 CNIPA 官费（270元/类）、代理费区间和总预算，含涉外翻译/公证认证。">
+<style>
+  :root{--bg:#0f1420;--card:#182031;--line:#27324a;--txt:#e8edf6;--mut:#9aa7bd;--acc:#d4a24e;--ok:#3fa66e;}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;background:var(--bg);color:var(--txt);line-height:1.55;padding:24px 14px 60px}
+  .wrap{max-width:780px;margin:0 auto}
+  h1{font-size:23px;margin:0 0 6px}
+  .sub{color:var(--mut);font-size:14px;margin-bottom:20px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:14px}
+  label{display:block;font-size:14px;font-weight:600;margin:12px 0 6px}
+  .hint{color:var(--mut);font-weight:400;font-size:12.5px}
+  .stepper{display:inline-flex;align-items:center}
+  .stepper button{width:42px;height:44px;background:#0c111c;border:1px solid var(--line);color:var(--acc);font-size:20px;border-radius:9px;cursor:pointer}
+  .stepper input{text-align:center;border:none;background:inherit;color:inherit;width:80px;font-size:18px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);height:44px}
+  select{background:#0c111c;border:1px solid var(--line);color:var(--txt);border-radius:9px;padding:10px 12px;font-size:14px;width:100%}
+  table{width:100%;border-collapse:collapse;font-size:14.5px}
+  td{padding:10px 4px;border-bottom:1px solid var(--line)}
+  td:last-child{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .total td{border-bottom:none;font-weight:700;font-size:16px;padding-top:12px}
+  .total .big{color:var(--acc);font-size:22px}
+  .muted{color:var(--mut)}.range{color:var(--ok);font-weight:700}
+  .note{font-size:12.5px;color:var(--mut);margin-top:10px}
+  .cta{display:inline-block;margin-top:12px;background:var(--acc);color:#1a1407;text-decoration:none;font-weight:700;padding:11px 16px;border-radius:9px;font-size:14px}
+  .ghost{display:inline-block;margin-top:12px;margin-left:8px;border:1px solid var(--line);color:var(--mut);text-decoration:none;padding:10px 14px;border-radius:9px;font-size:13px}
+  .disc{font-size:12px;color:var(--mut);margin-top:16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>中国商标官费计算器</h1>
+  <div class="sub">按现行 CNIPA 收费标准估算：网申 270 元/类（含 10 个商品/服务项），超出每项 27 元。代理费为市场常见区间。仅供规划，申报前以官方最新公告为准。</div>
+
+  <div class="card">
+    <label>申请类别数 <span class="hint">核心类别 + 防御类别，共 45 类</span></label>
+    <div class="stepper"><button id="cMinus">−</button><input type="number" id="cls" value="1" min="1" max="45"><button id="cPlus">+</button></div>
+    <label>每类商品/服务项数 <span class="hint">前 10 项已含在官费内，超出另计</span></label>
+    <div class="stepper"><button id="iMinus">−</button><input type="number" id="items" value="10" min="1" max="50"><button id="iPlus">+</button></div>
+    <label>涉外/海外主体材料 <span class="hint">翻译、委托书公证认证等</span></label>
+    <select id="paper">
+      <option value="0">中国主体，材料齐全</option>
+      <option value="300" selected>需翻译 + 委托书办理（约 300 元）</option>
+      <option value="1500">需完整公证认证/海牙认证（约 1500 元）</option>
+    </select>
+  </div>
+
+  <div class="card">
+    <table>
+      <tr><td>CNIPA 官费（网申）</td><td id="off">—</td></tr>
+      <tr><td class="muted">涉外材料</td><td id="pap">—</td></tr>
+      <tr><td>代理费区间 <span class="hint">（每类，市场常见价）</span></td><td id="fee" class="range">—</td></tr>
+      <tr class="total"><td>预估总预算</td><td id="total" class="big">—</td></tr>
+    </table>
+    <div class="note">顺利情形约 6–9 个月下证（受理约 1 个月 → 审查 → 3 个月公告 → 注册）。专用权 10 年，可续展。</div>
+    <a class="cta" href="https://calendly.com/huaqingip/30min" target="_blank" rel="noopener">要准确报价，免费咨询</a>
+    <a class="ghost" href="index.html">← 全部免费工具</a>
+    <div class="disc">仅为规划估算，非法律意见。官费随 CNIPA 公告调整，代理费因案件复杂程度而异。华青创新（华青 IP）出品。</div>
+  </div>
+</div>
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  function bind(id,minusId,plusId,mn,mx){
+    $(minusId).addEventListener('click',function(){var v=+$(id).value||mn;$(id).value=Math.max(mn,v-1);r()});
+    $(plusId).addEventListener('click',function(){var v=+$(id).value||mn;$(id).value=Math.min(mx,v+1);r()});
+    $(id).addEventListener('input',r);
+  }
+  bind('cls','cMinus','cPlus',1,45);bind('items','iMinus','iPlus',1,50);$('paper').addEventListener('change',r);
+  function fmt(n){return n.toLocaleString('zh-CN')}
+  function r(){
+    var c=Math.max(1,Math.min(45,+$('cls').value||1));
+    var it=Math.max(1,Math.min(50,+$('items').value||10));
+    var extra=Math.max(0,it-10);
+    var off=c*(270+extra*27);
+    var pap=+$('paper').value;
+    var lo=c*600, hi=c*1500;
+    $('off').textContent=fmt(off)+' 元';
+    $('pap').textContent=pap===0?'0 元':'约 '+fmt(pap)+' 元';
+    $('fee').textContent=fmt(lo)+'–'+fmt(hi)+' 元';
+    $('total').textContent=fmt(off+pap+lo)+'–'+fmt(off+pap+hi)+' 元';
+  }
+  r();
+})();
+</script>
+</body>
+</html>
