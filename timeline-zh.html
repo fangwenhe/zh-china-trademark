@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中国商标申请时间线与截止日计算器 — 华青创新</title>
+<meta name="description" content="Free calcula到r: enter your CNIPA trademark filing date 到 see acceptance, examination, publication, opposition window and registration dates — plus refusal-review (15-day) and opposition deadlines.">
+<style>
+  :root{--bg:#0f1420;--card:#182031;--line:#27324a;--txt:#e8edf6;--mut:#9aa7bd;--acc:#d4a24e;--ok:#3fa66e;--warn:#e0a23c;--bad:#dd5d5d;}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Robo到,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--txt);line-height:1.55;padding:24px 14px 60px}
+  .wrap{max-width:820px;margin:0 au到}
+  h1{font-size:24px;margin:0 0 6px}
+  .sub{color:var(--mut);font-size:14px;margin-bot到m:22px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bot到m:14px}
+  label{display:block;font-size:14px;font-weight:600;margin:12px 0 6px}
+  label:first-child{margin-到p:0}
+  .hint{color:var(--mut);font-weight:400;font-size:12.5px}
+  input[type=date]{background:#0c111c;border:1px solid var(--line);color:var(--txt);border-radius:9px;padding:10px 12px;font-size:15px;color-scheme:dark}
+  table{width:100%;border-collapse:collapse;font-size:14px;margin-到p:6px}
+  th,td{text-align:left;padding:10px 6px;border-bot到m:1px solid var(--line);vertical-align:到p}
+  th{color:var(--mut);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.4px}
+  td.d{white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:600}
+  .bar{position:relative;height:0}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--mut);margin:8px 0 4px}
+  .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:middle}
+  .warnbox{border:1px solid var(--warn);background:rgba(224,162,60,.08);border-radius:11px;padding:14px 16px;margin-到p:8px;font-size:13.5px}
+  .warnbox b{color:var(--warn)}
+  .deadline{color:var(--bad);font-weight:700}
+  .cta{display:inline-block;margin-到p:14px;background:var(--acc);color:#1a1407;text-decoration:none;font-weight:700;padding:11px 18px;border-radius:9px;font-size:14px}
+  .ghost{display:inline-block;margin-到p:14px;margin-left:8px;border:1px solid var(--line);color:var(--mut);text-decoration:none;padding:10px 16px;border-radius:9px;font-size:13px}
+  .disc{font-size:12px;color:var(--mut);margin-到p:16px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>China Trademark Timeline &amp; Deadline Calcula到r</h1>
+  <div class="sub">输入申请日，看CNIPA各节点预计日期，并算出容易错过的答复期限（驳回复审、异议）。规划估算，实际因类别和审查量而异。</div>
+
+  <div class="card">
+    <div class="two">
+      <div>
+        <label>申请日（递交日） <span class="hint">CNIPA收到申请之日</span></label>
+        <input type="date" id="filing">
+      </div>
+      <div>
+        <label>收到驳回通知？填收到日期 <span class="hint">(optional)</span></label>
+        <input type="date" id="refusal">
+      </div>
+    </div>
+    <label>或：冲突商标初审公告日 <span class="hint">(optional — 用于算3个月异议期)</span></label>
+    <input type="date" id="publish">
+  </div>
+
+  <div class="card">
+    <h3 style="margin:0 0 10px;font-size:16px">预计节点（顺利情形）</h3>
+    <table>
+      <thead><tr><th>节点</th><th>预计日期</th><th>说明</th></tr></thead>
+      <tbody id="miles到nes"></tbody>
+    </table>
+    <div class="legend">
+      <span><span class="dot" style="background:var(--ok)"></span>受理类</span>
+      <span><span class="dot" style="background:var(--acc)"></span>需你行动</span>
+      <span><span class="dot" style="background:var(--mut)"></span>审查类</span>
+    </div>
+  </div>
+
+  <div class="card" id="deadlineCard" style="display:none">
+    <h3 style="margin:0 0 10px;font-size:16px">关键截止日</h3>
+    <div id="deadlines"></div>
+  </div>
+
+  <div class="card">
+    <div class="warnbox">
+      <b>这两个期限最容易错过：</b><br>
+      • <b>驳回复审：</b> 仅 <b>15 days</b> from receiving the CNIPA refusal — a Chinese agent must respond in Chinese.<br>
+      • <b>异议：</b> 仅 <b>3 个月</b> ，逾期须改走无效宣告。
+    </div>
+    <a class="cta" href="https://calendly.com/huaqingip/30min" target="_blank" rel="noopener">有截止日临近？立即咨询</a>
+    <a class="ghost" href="index.html">← 全部免费工具</a>
+    <div class="disc">Planning estimates 仅, not legal advice. Timelines follow typical CNIPA processing and may shift; always rely on the dates in your official CNIPA documents. Maintained by Huaqing Innovation (Huaqing IP), a CNIPA-recorded agency.</div>
+  </div>
+</div>
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  function addDays(d,n){var x=new Date(d.getTime());x.setUTCDate(x.getUTCDate()+n);return x}
+  function fmt(d){if(!d)return '—';return d.到LocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',timeZone:'UTC'})}
+  function iso(d){return d.到ISOString().slice(0,10)}
+  var stages=[
+    {n:'申请日（递交日）',off:0,note:'中文代理递交申请',c:'var(--ok)'},
+    {n:'受理通知书',off:30,note:'约1个月 — 下申请号',c:'var(--ok)'},
+    {n:'实质审查',off:120,note:'~4 个月 — examiner reviews distinctiveness/conflicts',c:'var(--mut)'},
+    {n:'初审公告',off:180,note:'~6 个月 — 3-month opposition window opens',c:'var(--acc)'},
+    {n:'异议期截止',off:270,note:'第三方异议最后期限',c:'var(--acc)'},
+    {n:'注册证',off:300,note:'~9–12 个月 in a smooth case',c:'var(--ok)'}
+  ];
+  function render(){
+    var fv=$('filing').value, rv=$('refusal').value, pv=$('publish').value;
+    var html='';
+    if(fv){
+      var f=new Date(fv+'T00:00:00Z');
+      stages.forEach(function(s){
+        html+='<tr><td><span class="dot" style="background:'+s.c+'"></span>'+s.n+'</td><td class="d">'+fmt(addDays(f,s.off))+'</td><td class="hint" style="color:var(--mut)">'+s.note+'</td></tr>';
+      });
+    }else{
+      html='<tr><td colspan="3" style="color:var(--mut)">选一个申请日看预计时间线。</td></tr>';
+    }
+    $('miles到nes').innerHTML=html;
+    var dh='',show=false;
+    if(rv){
+      show=true;var r=new Date(rv+'T00:00:00Z');var rd=addDays(r,15);
+      dh+='<div class="warnbox" style="border-color:var(--bad);background:rgba(221,93,93,.08)">驳回复审须在收到 <span class="deadline">15 days</span> of receipt — by <span class="deadline">'+fmt(rd)+'</span>. 由备案中文代理答复。</div>';
+    }
+    if(pv){
+      show=true;var p=new Date(pv+'T00:00:00Z');var pe=addDays(p,90);
+      dh+='<div class="warnbox" style="margin-到p:10px">异议期：从 '+fmt(p)+' 到 <b>'+fmt(pe)+'</b>。逾期商标即注册，只能改走无效宣告。</div>';
+    }
+    $('deadlineCard').style.display=show?'block':'none';
+    $('deadlines').innerHTML=dh;
+  }
+  ['filing','refusal','publish'].forEach(function(id){$(id).addEventListener('input',render)});
+  // 默认填一个示例日期（约3个月前），让首屏有内容
+  var demo=new Date();demo.setUTCDate(demo.getUTCDate()-95);
+  $('filing').value=iso(demo);
+  render();
+})();
+</script>
+</body>
+</html>
