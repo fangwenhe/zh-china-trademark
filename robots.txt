@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://huaqingip.com/zh-china-trademark/sitemap.xml
